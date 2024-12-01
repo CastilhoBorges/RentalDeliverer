@@ -1,31 +1,23 @@
-# Etapa 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+USER $APP_UID
 WORKDIR /app
-
-# Copiar os arquivos principais da solução e do projeto
-COPY RentalDeliverer.sln ./
-COPY RentalDeliverer.csproj ./
-
-# Copiar o restante do código (incluindo src)
-COPY src ./src
-COPY appsettings.* ./
-
-# Restaurar as dependências
-RUN dotnet restore RentalDeliverer.csproj
-
-# Publicar o projeto
-RUN dotnet publish RentalDeliverer.csproj -c Release -o out
-
-# Etapa 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
-WORKDIR /app
-
-# Copiar os artefatos publicados para o container
-COPY --from=build /app/out .
-
-# Expor as portas configuradas no appsettings.json
 EXPOSE 5075
 EXPOSE 7201
 
-# Definir o comando de entrada
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["RentalDeliverer.csproj", "."]
+RUN dotnet restore "./RentalDeliverer.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "./RentalDeliverer.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./RentalDeliverer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "RentalDeliverer.dll"]
