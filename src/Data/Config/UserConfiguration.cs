@@ -9,8 +9,7 @@
             builder.HasKey(u => u.UserId);
 
             builder.Property(u => u.UserId)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("uuid");
+                .ValueGeneratedOnAdd();
 
             builder.Property(u => u.Mail)
                 .IsRequired()

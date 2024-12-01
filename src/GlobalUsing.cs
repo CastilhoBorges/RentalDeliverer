@@ -1,5 +1,11 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Http;
+global using System.Text;
+global using System.Security.Cryptography;
 global using RentalDeliverer.src.Models;
 global using RentalDeliverer.src.Data;
 global using RentalDeliverer.src.Data.Config;
+global using RentalDeliverer.src.Services;
+global using RentalDeliverer.src.Models.DTO;
