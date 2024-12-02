@@ -6,16 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RentalDeliverer.Migrations
 {
     /// <inheritdoc />
-    public partial class ResyncDatabase : Migration
+    public partial class DbMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Deliverer",
+                columns: table => new
+                {
+                    DelivererId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DelivererName = table.Column<string>(type: "text", nullable: false),
+                    CNPJ = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
+                    CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    CNHType = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CNHImgPath = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deliverer", x => x.DelivererId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Motorcycles",
                 columns: table => new
                 {
                     MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    identifier = table.Column<string>(type: "text", nullable: false),
                     Year = table.Column<int>(type: "integer", nullable: false),
                     Model = table.Column<string>(type: "text", nullable: false),
                     LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
@@ -36,43 +55,6 @@ namespace RentalDeliverer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RentalTypes", x => x.RentalTypeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    Mail = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Deliverer",
-                columns: table => new
-                {
-                    DelivererId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CNPJ = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
-                    CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
-                    CNHType = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CNHImgPath = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Deliverer", x => x.DelivererId);
-                    table.ForeignKey(
-                        name: "FK_Deliverer_user_UserId",
-                        column: x => x.UserId,
-                        principalTable: "user",
-                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -123,12 +105,6 @@ namespace RentalDeliverer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deliverer_UserId",
-                table: "Deliverer",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Motorcycles_LicensePlate",
                 table: "Motorcycles",
                 column: "LicensePlate",
@@ -148,12 +124,6 @@ namespace RentalDeliverer.Migrations
                 name: "IX_Rentals_RentalTypeId",
                 table: "Rentals",
                 column: "RentalTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_user_Mail",
-                table: "user",
-                column: "Mail",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -170,9 +140,6 @@ namespace RentalDeliverer.Migrations
 
             migrationBuilder.DropTable(
                 name: "RentalTypes");
-
-            migrationBuilder.DropTable(
-                name: "user");
         }
     }
 }

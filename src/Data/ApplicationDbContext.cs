@@ -6,7 +6,6 @@
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Deliverer> Deliverers { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<Rental> Rentals { get; set; }
@@ -16,7 +15,6 @@
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new DelivererConfiguration());
             modelBuilder.ApplyConfiguration(new MotorcycleConfiguration());
             modelBuilder.ApplyConfiguration(new RentalConfiguration());

@@ -12,8 +12,8 @@ using RentalDeliverer.src.Data;
 namespace RentalDeliverer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241201192137_ResyncDatabase")]
-    partial class ResyncDatabase
+    [Migration("20241202155648_DbMigration")]
+    partial class DbMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,12 +51,13 @@ namespace RentalDeliverer.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("character varying(14)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DelivererName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("DelivererId");
 
@@ -64,9 +65,6 @@ namespace RentalDeliverer.Migrations
                         .IsUnique();
 
                     b.HasIndex("CNPJ")
-                        .IsUnique();
-
-                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Deliverer", (string)null);
@@ -89,6 +87,10 @@ namespace RentalDeliverer.Migrations
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");
+
+                    b.Property<string>("identifier")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("MotorcycleId");
 
@@ -150,42 +152,6 @@ namespace RentalDeliverer.Migrations
                     b.ToTable("RentalTypes", (string)null);
                 });
 
-            modelBuilder.Entity("RentalDeliverer.src.Models.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Mail")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("Mail")
-                        .IsUnique();
-
-                    b.ToTable("user", (string)null);
-                });
-
-            modelBuilder.Entity("RentalDeliverer.src.Models.Deliverer", b =>
-                {
-                    b.HasOne("RentalDeliverer.src.Models.User", "User")
-                        .WithOne("Deliverer")
-                        .HasForeignKey("RentalDeliverer.src.Models.Deliverer", "UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("RentalDeliverer.src.Models.Rental", b =>
                 {
                     b.HasOne("RentalDeliverer.src.Models.Deliverer", "Deliverer")
@@ -226,12 +192,6 @@ namespace RentalDeliverer.Migrations
             modelBuilder.Entity("RentalDeliverer.src.Models.RentalType", b =>
                 {
                     b.Navigation("Rentals");
-                });
-
-            modelBuilder.Entity("RentalDeliverer.src.Models.User", b =>
-                {
-                    b.Navigation("Deliverer")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
