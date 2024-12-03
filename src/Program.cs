@@ -1,3 +1,5 @@
+using RentalDeliverer.src.Services.MotorcycleS;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var mongoClient = new MongoClient(builder.Configuration["MongoDB:ConnectionString"]);
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<MotoCreateService>();
+builder.Services.AddScoped<MotoListService>();
 
 builder.Services.AddSingleton(mongoDatabase);
 builder.Services.AddScoped<MotoCreatedPublisher>();

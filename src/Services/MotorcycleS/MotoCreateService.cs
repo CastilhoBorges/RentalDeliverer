@@ -1,11 +1,11 @@
-﻿namespace RentalDeliverer.src.Services
+﻿namespace RentalDeliverer.src.Services.MotorcycleS
 {
     public class MotoCreateService(ApplicationDbContext context, IPublishEndpoint publishEndpoint)
     {
         private readonly ApplicationDbContext _context = context;
         private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
 
-        public async Task<Motorcycle> CreateMotoAsync(MotoCreateRequest request)
+        public async Task<string> CreateMotoAsync(MotoCreateRequest request)
         {
             var identifier = request.Identificador;
             var year = request.Ano;
@@ -16,7 +16,7 @@
 
             if (plateExists)
             {
-                throw new Exception($"A placa {licensePlate} ja esta cadastrada");
+                throw new Exception("Dados inválidos");
             }
 
             var moto = new Motorcycle
@@ -38,7 +38,7 @@
 
             await _publishEndpoint.Publish(motoCreatedEvent);
 
-            return moto;
+            return "";
         }
     }
 }

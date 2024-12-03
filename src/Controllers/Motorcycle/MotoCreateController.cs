@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using RentalDeliverer.src.Services.MotorcycleS;
 
-namespace RentalDeliverer.src.Controllers
+namespace RentalDeliverer.src.Controllers.Motorcycle
 {
-    [Route("adm/motos")]
+    [Route("/motos")]
     [ApiController]
     public class MotoCreateController(MotoCreateService motoCreateService) : ControllerBase
     {
@@ -14,8 +13,8 @@ namespace RentalDeliverer.src.Controllers
         {
             try
             {
-                var motoCreated = await _motoCreateService.CreateMotoAsync(request);
-                return Ok(motoCreated);
+                await _motoCreateService.CreateMotoAsync(request);
+                return Ok();
             }
             catch (Exception ex)
             {
