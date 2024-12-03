@@ -7,7 +7,15 @@
         public async Task<Motorcycle[]> ListMotoAsync(MotoFilterByPlateParams request)
         {
             var plate = request.Placa;
-            
+
+            if (plate == null)
+            {
+                return await _context.Motorcycles.ToArrayAsync();
+            }
+
+            return await _context.Motorcycles
+                .Where(m => m.LicensePlate == plate)
+                .ToArrayAsync();
         }
     }
 }

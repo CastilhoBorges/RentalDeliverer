@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<MotoCreateService>();
 builder.Services.AddScoped<MotoListService>();
+builder.Services.AddScoped<MotoUpdatePlateService>();
 
 builder.Services.AddSingleton(mongoDatabase);
 builder.Services.AddScoped<MotoCreatedPublisher>();
