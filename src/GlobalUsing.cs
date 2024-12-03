@@ -10,6 +10,8 @@ global using RentalDeliverer.src.Data.Infra.RbMq;
 global using RentalDeliverer.src.Data.Infra.RbMq.Consumers;
 global using RentalDeliverer.src.Data.Infra.RbMq.Publishers;
 global using RentalDeliverer.src.Models.DTO;
+global using RentalDeliverer.src.Data.Infra.Azure.Storage;
 global using MongoDB.Bson;
 global using MongoDB.Driver;
 global using MassTransit;
+global using Azure.Storage.Blobs;

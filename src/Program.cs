@@ -1,3 +1,4 @@
+using RentalDeliverer.src.Services.DelivererS;
 using RentalDeliverer.src.Services.MotorcycleS;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +17,14 @@ builder.Services.AddScoped<MotoCreateService>();
 builder.Services.AddScoped<MotoListService>();
 builder.Services.AddScoped<MotoUpdatePlateService>();
 
-builder.Services.AddSingleton(mongoDatabase);
-builder.Services.AddScoped<MotoCreatedPublisher>();
+builder.Services.AddScoped<DelivererCreateService>();
 
+
+builder.Services.AddSingleton(mongoDatabase);
+builder.Services.AddAzureBlobStorage(builder.Configuration);
 builder.Services.AddMassTransitWithRabbitMq(builder.Configuration);
+
+builder.Services.AddScoped<MotoCreatedPublisher>();
 
 var app = builder.Build();
 
