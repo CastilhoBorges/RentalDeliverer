@@ -21,9 +21,9 @@ Antes de iniciar, certifique-se de ter os seguintes pré-requisitos instalados:
 Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 
 - **5432** - PostgreSQL
-- **5075** - API local
-- **7201** - Swagger/HTTP local
-- **15672** - RabbitMQ Management UI
+- **5075** - HTTP Local
+- **7201** - HTTPS Local
+- **15672** - RabbitMQ 
 - **27017** - MongoDB
 
 ---
@@ -48,3 +48,11 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 4. **Execute a aplicação localmente:**
    ```bash
    dotnet run
+
+## Acessando os Serviços
+
+- **Swagger:** [http://localhost:5075](http://localhost:5075/swagger/index.html)
+- **RabbitMQ Management UI:** [http://localhost:15672](http://localhost:15672)
+  - **Usuário padrão:** `admin`
+  - **Senha padrão:** `admin@123`
+
