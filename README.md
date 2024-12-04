@@ -61,7 +61,6 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 
 ## Acessando os Serviços
 
-- **Swagger HTTP:** [http://localhost:5075](http://localhost:5075/swagger/index.html)
 - **Swagger HTTPS:** [http://localhost:7201](https://localhost:7201/swagger/index.html)
 - **RabbitMQ:** [http://localhost:15672](http://localhost:15672)
   - **Usuário padrão:** `admin`
