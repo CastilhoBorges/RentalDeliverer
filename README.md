@@ -59,3 +59,15 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
   - **Usuário padrão:** `admin`
   - **Senha padrão:** `admin@123`
 
+---
+
+## Casos de uso para teste
+
+- `/motos` Endpoint responsavel pela Criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, confere se ja tem uma placa cadastrada se não, ela é criada na tabela Motorcycles no postgres.
+```json
+{
+  "identificador": "string",
+  "ano": 0,
+  "modelo": "string",
+  "placa": "string"
+}
