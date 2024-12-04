@@ -63,7 +63,7 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 
 ## Casos de uso para teste
 
-- `POST/motos` Endpoint responsavel pela Criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, confere se ja tem uma placa cadastrada se não, ela é criada na tabela Motorcycles no postgres.
+- `POST/motos` Endpoint responsavel pela Criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, confere se ja tem uma placa cadastrada se não, ela é criada na tabela Motorcycles no postgres. Quando é criada uma moto, é gerado uma notificação, onde um publisher publica na fila do RabbitMq, e caso o ano da moto seja 2024, um consumidor nessa fila salva essa mensagem com a placa e data no MongoDb.
 ```json
 {
   "identificador": "string",
@@ -79,3 +79,56 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 {
   "placa": "string"
 }
+
+- `DELETE/motos/{id}` Caso uma moto não esteja alugada, é possivel deleta-la do banco, apenas passando seu id.
+
+- `POST/entregadores` Assumindo o papel de entregador, posso me cadastrar para poder alugar uma moto, enviando os dados de acordo com o JSON abaixo. Lembrando que so é permitido CNH's do tipo A, B e AB. A imagem nessa rota, é armazenada no storage do Azure, e no banco guardamos apenas a URL que da acesso a ela.
+```json
+{
+  "identificador": "string",
+  "nome": "string",
+  "cnpj": "string",
+  "data_nascimento": "2024-12-04T17:31:03.269Z",
+  "numero_cnh": "string",
+  "tipo_cnh": "string",
+  "imagem_cnh": "string"
+}
+```
+
+- `POST/entregadores/{id}/cnh` Endpoint que recebe a foto atualizada da CNH do entregador, e se ela for png ou bmp, é salva no storage da Azure.
+```json
+{
+  "imagem_cnh": "string"
+}
+```
+
+- `POST/locacao` Rota usada para ativar a locação de um entregador com os dados do JSON abaixo. Obrigatoriamente a data de inicio deve ser um dia a frente do momento que esta feito o cadastro e o plano algum dos mencioandos no JSON. Quando a locação é efetuada, é retornado o id da locação, recomendo salva-lo para usar em endpoints futuros.
+```json
+{
+  "entregador_id": "string",
+  "moto_id": "string",
+  "data_inicio": "2024-12-04T17:36:25.067Z",
+  "data_termino": "2024-12-04T17:36:25.067Z",
+  "data_previsao_termino": "2024-12-04T17:36:25.067Z",
+  "plano": {7 OU 15 OU 30 OU 45 OU 50}
+}
+```
+
+- `PUT/locacao/{id}/devolucao` Nessa Rota o entregador consegue saber qual o valor que vai ser pago na sua locação, lembra no ultimo endpoint que pedi para guardar o id da locação, então, ele vai ser importante aqui, adicione ele no id da url, e no Body defina a data que vai ser devolvida a moto, Com isso se a data for igual a que voce definiu na previsão quando alugou, o valor segue o padrão abaixo
+    - 7 dias com um custo de R$30,00 por dia
+    - 15 dias com um custo de R$28,00 por dia
+    - 30 dias com um custo de R$22,00 por dia
+    - 45 dias com um custo de R$20,00 por dia
+    - 50 dias com um custo de R$18,00 por dia
+- Caso a data seja menor, sera cobrada uma multa com os seguintes criterios:
+   - Para plano de 7 dias o valor da multa é de 20% sobre o valor das diárias não efetivadas.
+   - Para plano de 15 dias o valor da multa é de 40% sobre o valor das diárias não efetivadas.
+   - Para plano de 30 dias o valor da multa é de 60% sobre o valor das diárias não efetivadas.
+   - Para plano de 45 dias o valor da multa é de 80% sobre o valor das diárias não efetivadas.
+   - Para plano de 50 dias o valor da multa é de 100% sobre o valor das diárias não efetivadas.
+- Caso a data seja maior, sera cobrada para cada dia a mais, 50 reais de diaria.
+```json
+{
+  "data_devolucao": "2024-12-04T17:39:54.019Z"
+}
+```
