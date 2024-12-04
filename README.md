@@ -10,6 +10,14 @@
 
 ---
 
+## Índice
+
+1. [Configuração de Ambiente](#configuração-de-ambiente)
+2. [Passo a Passo para Configuração](#passo-a-passo-para-configuração)
+3. [Acessando os Serviços](#acessando-os-serviços)
+4. [Casos de Uso para Teste](#casos-de-uso-para-teste)
+---
+
 ## Configuração de Ambiente
 
 Antes de iniciar, certifique-se de ter os seguintes pré-requisitos instalados:
