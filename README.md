@@ -33,8 +33,8 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/SEU_USUARIO/rental-deliverer.git
-   cd rental-deliverer
+   git clone https://github.com/CastilhoBorges/RentalDeliverer.git
+   cd RentalDeliverer
 
 2. **Restaure as dependências do projeto:**
 
