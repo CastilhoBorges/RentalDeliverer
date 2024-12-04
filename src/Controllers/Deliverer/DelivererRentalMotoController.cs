@@ -13,12 +13,12 @@ namespace RentalDeliverer.src.Controllers.Deliverer
         {
             try
             {
-                await _delivererRentalMotoService.RentalMotoAsync(request);
-                return StatusCode(201);
+                var response = await _delivererRentalMotoService.RentalMotoAsync(request);
+                return StatusCode(201, response);
             }
-            catch
+            catch (Exception ex) 
             {
-                return BadRequest(new { message = "Dados inválidos" });
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

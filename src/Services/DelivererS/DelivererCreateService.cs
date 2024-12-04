@@ -35,7 +35,7 @@ namespace RentalDeliverer.src.Services.DelivererS
 
             var deliverer = new Deliverer
             {
-                DelivererName = request.identificador,
+                DelivererId = request.identificador,
                 CNPJ = request.cnpj,
                 CNH = request.numero_cnh,
                 CNHType = request.tipo_cnh,

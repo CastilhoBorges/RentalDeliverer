@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RentalDeliverer.Migrations
 {
     /// <inheritdoc />
-    public partial class Migration00 : Migration
+    public partial class Migration10 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace RentalDeliverer.Migrations
                 name: "Deliverer",
                 columns: table => new
                 {
-                    DelivererId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DelivererName = table.Column<string>(type: "text", nullable: false),
+                    DelivererId = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
                     CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
                     CNHType = table.Column<string>(type: "text", nullable: false),
@@ -33,8 +32,7 @@ namespace RentalDeliverer.Migrations
                 name: "Motorcycles",
                 columns: table => new
                 {
-                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    identifier = table.Column<string>(type: "text", nullable: false),
+                    MotorcycleId = table.Column<string>(type: "text", nullable: false),
                     Year = table.Column<int>(type: "integer", nullable: false),
                     Model = table.Column<string>(type: "text", nullable: false),
                     LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
@@ -48,7 +46,7 @@ namespace RentalDeliverer.Migrations
                 name: "RentalTypes",
                 columns: table => new
                 {
-                    RentalTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RentalTypeId = table.Column<string>(type: "text", nullable: false),
                     Days = table.Column<int>(type: "integer", nullable: false),
                     Cost = table.Column<decimal>(type: "numeric", nullable: false)
                 },
@@ -61,10 +59,10 @@ namespace RentalDeliverer.Migrations
                 name: "Rentals",
                 columns: table => new
                 {
-                    RentalId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DelivererId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RentalTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RentalId = table.Column<string>(type: "text", nullable: false),
+                    MotorcycleId = table.Column<string>(type: "text", nullable: false),
+                    DelivererId = table.Column<string>(type: "text", nullable: false),
+                    RentalTypeId = table.Column<string>(type: "text", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpectedEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

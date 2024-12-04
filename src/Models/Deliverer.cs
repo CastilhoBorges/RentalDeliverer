@@ -2,8 +2,7 @@
 {
     public class Deliverer
     {
-        public Guid DelivererId { get; set; }
-        public string DelivererName { get; set; }
+        public string DelivererId { get; set; }
         public string CNPJ { get; set; }
         public string CNH { get; set; }
         public string CNHType { get; set; }

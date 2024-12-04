@@ -4,16 +4,16 @@ namespace RentalDeliverer.src.Services.DelivererS
     {
         private readonly ApplicationDbContext _context = context;
 
-        public async Task<string> RentalMotoAsync(RentalMotoRequest request)
+        public async Task<Guid> RentalMotoAsync(RentalMotoRequest request)
         {
             var moto = await MotorcycleExist(request.Moto_id);
-            var typeRental = await TypeRentalQuery(request.Plano) ?? throw new Exception();
-            var typeCnhOk = await IsCnhTypeA(request.Entregador_id) ? true : throw new Exception();
+            var typeRental = await TypeRentalQuery(request.Plano) ?? throw new Exception("Tipo de locação não existe");
+            var typeCnhOk = await IsCnhTypeA(request.Entregador_id) ? true : throw new Exception("CNH diferente de A");
             var initTomorrow = IsOneDayAfter(DateTime.Now, request.Data_inicio);
             
-            if (!initTomorrow) throw new Exception();
+            if (!initTomorrow) throw new Exception("Data de inicio invalida!");
 
-            var rental = new Rental 
+            var rental = new Rental
             {
                 MotorcycleId = request.Moto_id,
                 DelivererId = request.Entregador_id,
@@ -26,7 +26,7 @@ namespace RentalDeliverer.src.Services.DelivererS
             await _context.AddAsync(rental);
             await _context.SaveChangesAsync();
 
-            return "";
+            return rental.RentalId;
         }
         
         private async Task<RentalType> TypeRentalQuery(int type)
@@ -43,15 +43,15 @@ namespace RentalDeliverer.src.Services.DelivererS
             return dateExpected == dateRegister.Date;
         }
 
-        private async Task<bool> IsCnhTypeA(Guid id)
+        private async Task<bool> IsCnhTypeA(string id)
         {
-            var deliverer = await this._context.Deliverers.FindAsync(id) ?? throw new Exception();
+            var deliverer = await this._context.Deliverers.FindAsync(id) ?? throw new Exception("Entregador não existe");
             return deliverer.CNHType == "A";
         }
 
-        private async Task<Motorcycle> MotorcycleExist(Guid id)
+        private async Task<Motorcycle> MotorcycleExist(string id)
         {
-            var moto = await this._context.Motorcycles.FindAsync(id) ?? throw new Exception();
+            var moto = await this._context.Motorcycles.FindAsync(id) ?? throw new Exception("Moto não existe");
             return moto;
         }
     }

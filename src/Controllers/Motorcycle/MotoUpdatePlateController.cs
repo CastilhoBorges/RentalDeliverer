@@ -9,7 +9,7 @@ namespace RentalDeliverer.src.Controllers.Motorcycle
         private readonly MotoUpdatePlateService _motoUpdatePlateService = motoUpdatePlateService;
 
         [HttpPut]
-        public async Task<ActionResult> UpdatePlate([FromRoute] Guid id, [FromBody] MotoUpdatePlateRequest body)
+        public async Task<ActionResult> UpdatePlate([FromRoute] string id, [FromBody] MotoUpdatePlateRequest body)
         {
             try
             {

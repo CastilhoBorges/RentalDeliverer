@@ -16,9 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<MotoCreateService>();
 builder.Services.AddScoped<MotoListService>();
 builder.Services.AddScoped<MotoUpdatePlateService>();
+builder.Services.AddScoped<MotoDeleteService>();
 
 builder.Services.AddScoped<DelivererCreateService>();
 builder.Services.AddScoped<DelivererRentalMotoService>();
+builder.Services.AddScoped<DelivererDateEndAndPriceService>();
 
 builder.Services.AddSingleton(mongoDatabase);
 builder.Services.AddAzureBlobStorage(builder.Configuration);

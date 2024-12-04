@@ -21,7 +21,7 @@
 
             var moto = new Motorcycle
             {
-                identifier = identifier,
+                MotorcycleId = identifier,
                 Year = year,
                 Model = model,
                 LicensePlate = licensePlate,

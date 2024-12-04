@@ -2,8 +2,7 @@
 {
     public class Motorcycle
     {
-        public Guid MotorcycleId { get; set; }
-        public string identifier { get; set; }
+        public string MotorcycleId { get; set; }
         public int Year { get; set; }
         public string Model { get; set; }
         public string LicensePlate { get; set; }

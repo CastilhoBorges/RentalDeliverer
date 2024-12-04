@@ -12,8 +12,8 @@ using RentalDeliverer.src.Data;
 namespace RentalDeliverer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241204014134_Migration0.0")]
-    partial class Migration00
+    [Migration("20241204130025_Migration1.0")]
+    partial class Migration10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,8 @@ namespace RentalDeliverer.Migrations
 
             modelBuilder.Entity("RentalDeliverer.src.Models.Deliverer", b =>
                 {
-                    b.Property<Guid>("DelivererId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("DelivererId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp with time zone");
@@ -51,10 +50,6 @@ namespace RentalDeliverer.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("character varying(14)");
 
-                    b.Property<string>("DelivererName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -72,9 +67,8 @@ namespace RentalDeliverer.Migrations
 
             modelBuilder.Entity("RentalDeliverer.src.Models.Motorcycle", b =>
                 {
-                    b.Property<Guid>("MotorcycleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("MotorcycleId")
+                        .HasColumnType("text");
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
@@ -88,10 +82,6 @@ namespace RentalDeliverer.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("integer");
 
-                    b.Property<string>("identifier")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("MotorcycleId");
 
                     b.HasIndex("LicensePlate")
@@ -102,12 +92,12 @@ namespace RentalDeliverer.Migrations
 
             modelBuilder.Entity("RentalDeliverer.src.Models.Rental", b =>
                 {
-                    b.Property<Guid>("RentalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("RentalId")
+                        .HasColumnType("text");
 
-                    b.Property<Guid>("DelivererId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("DelivererId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
@@ -115,11 +105,13 @@ namespace RentalDeliverer.Migrations
                     b.Property<DateTime>("ExpectedEndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("MotorcycleId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("MotorcycleId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<Guid>("RentalTypeId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("RentalTypeId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
@@ -137,9 +129,8 @@ namespace RentalDeliverer.Migrations
 
             modelBuilder.Entity("RentalDeliverer.src.Models.RentalType", b =>
                 {
-                    b.Property<Guid>("RentalTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("RentalTypeId")
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");

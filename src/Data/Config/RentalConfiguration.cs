@@ -8,6 +8,10 @@
 
             builder.HasKey(r => r.RentalId);
 
+            builder.Property(r => r.RentalId)
+                .ValueGeneratedOnAdd() 
+                .IsRequired();
+
             builder.Property(r => r.StartDate)
                 .IsRequired();
 

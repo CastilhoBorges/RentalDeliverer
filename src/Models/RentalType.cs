@@ -2,7 +2,7 @@
 {
     public class RentalType
     {
-        public Guid RentalTypeId { get; set; } 
+        public string RentalTypeId { get; set; } 
         public int Days { get; set; }
         public decimal Cost { get; set; }
 
