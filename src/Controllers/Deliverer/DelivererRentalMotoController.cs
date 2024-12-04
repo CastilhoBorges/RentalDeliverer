@@ -16,10 +16,9 @@ namespace RentalDeliverer.src.Controllers.Deliverer
                 await _delivererRentalMotoService.RentalMotoAsync(request);
                 return StatusCode(201);
             }
-            catch (Exception ex) 
+            catch
             {
-                //return BadRequest(new { message = "Dados inválidos" });
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = "Dados inválidos" });
             }
         }
     }

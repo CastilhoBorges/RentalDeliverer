@@ -7,11 +7,11 @@ namespace RentalDeliverer.src.Services.DelivererS
         public async Task<string> RentalMotoAsync(RentalMotoRequest request)
         {
             var moto = await MotorcycleExist(request.Moto_id);
-            var typeRental = await TypeRentalQuery(request.Plano) ?? throw new Exception("type Não encontrado");
-            var typeCnhOk = await IsCnhTypeA(request.Entregador_id) ? true : throw new Exception("Cnh Não é tipo A");
+            var typeRental = await TypeRentalQuery(request.Plano) ?? throw new Exception();
+            var typeCnhOk = await IsCnhTypeA(request.Entregador_id) ? true : throw new Exception();
             var initTomorrow = IsOneDayAfter(DateTime.Now, request.Data_inicio);
             
-            if (!initTomorrow) throw new Exception("Não esta um dia depois");
+            if (!initTomorrow) throw new Exception();
 
             var rental = new Rental 
             {
@@ -45,13 +45,13 @@ namespace RentalDeliverer.src.Services.DelivererS
 
         private async Task<bool> IsCnhTypeA(Guid id)
         {
-            var deliverer = await this._context.Deliverers.FindAsync(id) ?? throw new Exception("Tipo não existe");
+            var deliverer = await this._context.Deliverers.FindAsync(id) ?? throw new Exception();
             return deliverer.CNHType == "A";
         }
 
         private async Task<Motorcycle> MotorcycleExist(Guid id)
         {
-            var moto = await this._context.Motorcycles.FindAsync(id) ?? throw new Exception("Moto não existe");
+            var moto = await this._context.Motorcycles.FindAsync(id) ?? throw new Exception();
             return moto;
         }
     }
