@@ -54,7 +54,7 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 ## Acessando os Serviços
 
 - **Swagger:** [http://localhost:5075](http://localhost:5075/swagger/index.html)
-- **RabbitMQ Management UI:** [http://localhost:15672](http://localhost:15672)
+- **RabbitMQ:** [http://localhost:15672](http://localhost:15672)
   - **Usuário padrão:** `admin`
   - **Senha padrão:** `admin@123`
 
