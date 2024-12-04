@@ -71,7 +71,7 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 
 ## Casos de uso para teste
 
-- `POST/motos` Endpoint responsavel pela Criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, confere se ja tem uma placa cadastrada se não, ela é criada na tabela Motorcycles no postgres. Quando é criada uma moto, é gerado uma notificação, onde um publisher publica na fila do RabbitMq, e caso o ano da moto seja 2024, um consumidor nessa fila salva essa mensagem com a placa e data no MongoDb.
+- `POST/motos` Endpoint responsável pela criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, verifica se já existe uma placa cadastrada; se não, a moto é criada na tabela Motorcycles no PostgreSQL. Quando uma moto é criada, é gerada uma notificação publicada na fila do RabbitMQ. Caso o ano da moto seja 2024, um consumidor salva essa mensagem no MongoDB.
 ```json
 {
   "identificador": "string",
@@ -81,16 +81,16 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 }
 ```
 
-- `GET/motos?placa` Endpoint responsavel pela listagem de todas as motos cadastradas na tabela Motorcycle. Com a possibilidade de filtrar as motos pela placa, caso o parametro da placa não seja enviado, a api traz um array de objetos com todas as motos.
+- `GET/motos?placa` Endpoint responsável pela listagem de todas as motos cadastradas na tabela Motorcycles. É possível filtrar motos pela placa. Caso o parâmetro de placa não seja enviado, a API retorna um array de objetos com todas as motos.
 
-- `PUT/motos/{id}/placa` Caso ao cadastrar a moto, colocamos a placa errada, aqui conseguimos consertar isso, passamos o id da moto que desejamos que seja alterada e no body a placa que subtituira a errada.
+- `PUT/motos/{id}/placa` Permite corrigir a placa de uma moto cadastrada. É necessário fornecer o ID da moto e a nova placa no corpo da requisição.
 {
   "placa": "string"
 }
 
 - `DELETE/motos/{id}` Caso uma moto não esteja alugada, é possivel deleta-la do banco, apenas passando seu id.
 
-- `POST/entregadores` Assumindo o papel de entregador, posso me cadastrar para poder alugar uma moto, enviando os dados de acordo com o JSON abaixo. Lembrando que so é permitido CNH's do tipo A, B e AB. A imagem nessa rota, é armazenada no storage do Azure, e no banco guardamos apenas a URL que da acesso a ela.
+- `POST/entregadores` Permite que um entregador se cadastre para alugar uma moto. Aceita apenas CNHs dos tipos A, B e AB. A imagem da CNH é armazenada no Azure Blob Storage, e no banco de dados é salva apenas a URL.
 ```json
 {
   "identificador": "string",
@@ -103,14 +103,14 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 }
 ```
 
-- `POST/entregadores/{id}/cnh` Endpoint que recebe a foto atualizada da CNH do entregador, e se ela for png ou bmp, é salva no storage da Azure.
+- `POST/entregadores/{id}/cnh` Atualiza a foto da CNH do entregador. Apenas imagens no formato PNG ou BMP são aceitas e armazenadas no Azure Blob Storage.
 ```json
 {
   "imagem_cnh": "string"
 }
 ```
 
-- `POST/locacao` Rota usada para ativar a locação de um entregador com os dados do JSON abaixo. Obrigatoriamente a data de inicio deve ser um dia a frente do momento que esta feito o cadastro e o plano algum dos mencioandos no JSON. Quando a locação é efetuada, é retornado o id da locação, recomendo salva-lo para usar em endpoints futuros.
+- `POST/locacao` Ativa a locação de uma moto por um entregador. A data de início deve ser no mínimo um dia após o momento de cadastro. O plano pode ser um dos valores mencionados no JSON. É retornado o id da locação, recomendo salva-lo para usar em endpoints futuros.
 ```json
 {
   "entregador_id": "string",
@@ -123,11 +123,11 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
 ```
 
 - `PUT/locacao/{id}/devolucao` Nessa Rota o entregador consegue saber qual o valor que vai ser pago na sua locação, lembra no ultimo endpoint que pedi para guardar o id da locação, então, ele vai ser importante aqui, adicione ele no id da url, e no Body defina a data que vai ser devolvida a moto, Com isso se a data for igual a que voce definiu na previsão quando alugou, o valor segue o padrão abaixo
-    - 7 dias com um custo de R$30,00 por dia
-    - 15 dias com um custo de R$28,00 por dia
-    - 30 dias com um custo de R$22,00 por dia
-    - 45 dias com um custo de R$20,00 por dia
-    - 50 dias com um custo de R$18,00 por dia
+    - 7 dias: R$30/dia
+    - 15 dias: R$28/dia
+    - 30 dias: R$22/dia
+    - 45 dias: R$20/dia
+    - 50 dias: R$18/dia
 - Caso a data seja menor, sera cobrada uma multa com os seguintes criterios:
    - Para plano de 7 dias o valor da multa é de 20% sobre o valor das diárias não efetivadas.
    - Para plano de 15 dias o valor da multa é de 40% sobre o valor das diárias não efetivadas.
