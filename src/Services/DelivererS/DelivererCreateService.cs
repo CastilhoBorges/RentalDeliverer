@@ -14,12 +14,12 @@ namespace RentalDeliverer.src.Services.DelivererS
 
             if (cnhExist || cnpjExist)
             {
-                throw new Exception("Dados inválidos");
+                throw new Exception();
             }
 
             if (request.tipo_cnh != "A" && request.tipo_cnh != "B" && request.tipo_cnh != "AB")
             {
-                throw new Exception("Dados inválidos");
+                throw new Exception();
             }
 
             var cleanHash = new Regex(@"^data:image\/[a-z]+;base64,").Replace(request.imagem_cnh, "");

@@ -16,9 +16,9 @@ namespace RentalDeliverer.src.Controllers.Motorcycle
                 await _motoCreateService.CreateMotoAsync(request);
                 return Ok();
             }
-            catch (Exception ex)
+            catch 
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = "Dados inválidos" });
             }
         }
     }

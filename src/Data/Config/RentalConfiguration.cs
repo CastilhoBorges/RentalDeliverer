@@ -11,6 +11,9 @@
             builder.Property(r => r.StartDate)
                 .IsRequired();
 
+            builder.Property(r => r.EndDate)
+                .IsRequired();
+
             builder.Property(r => r.ExpectedEndDate)
                 .IsRequired();
 

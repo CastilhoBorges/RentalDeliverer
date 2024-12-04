@@ -11,7 +11,7 @@
 
             if (plateExist || (moto == null))
             {
-                throw new Exception("Dados inválidos");
+                throw new Exception();
             }
 
             moto.LicensePlate = body.Placa;

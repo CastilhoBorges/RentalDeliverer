@@ -16,9 +16,9 @@ namespace RentalDeliverer.src.Controllers.Motorcycle
                 var response = await _motoUpdatePlateService.UpdatePlateAsync(id, body);
                 return Ok(new { mensagem = response });
             }
-            catch (Exception ex) 
+            catch 
             {
-                return BadRequest(new { ex.Message });
+                return BadRequest(new { message = "Dados inválidos" });
             }
         }
     }

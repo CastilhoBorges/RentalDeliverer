@@ -28,9 +28,8 @@ namespace RentalDeliverer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BirthDate")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CNH")
                         .IsRequired()
@@ -107,7 +106,7 @@ namespace RentalDeliverer.Migrations
                     b.Property<Guid>("DelivererId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("ExpectedEndDate")

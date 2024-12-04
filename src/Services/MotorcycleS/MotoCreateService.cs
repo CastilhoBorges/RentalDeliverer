@@ -16,7 +16,7 @@
 
             if (plateExists)
             {
-                throw new Exception("Dados inválidos");
+                throw new Exception();
             }
 
             var moto = new Motorcycle

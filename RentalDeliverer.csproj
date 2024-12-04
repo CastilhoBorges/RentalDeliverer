@@ -23,4 +23,20 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="src\Controllers\Rental\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="src\Controllers\Rental\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="src\Controllers\Rental\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\Controllers\Rental\**" />
+  </ItemGroup>
+
 </Project>

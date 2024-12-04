@@ -18,7 +18,7 @@ builder.Services.AddScoped<MotoListService>();
 builder.Services.AddScoped<MotoUpdatePlateService>();
 
 builder.Services.AddScoped<DelivererCreateService>();
-
+builder.Services.AddScoped<DelivererRentalMotoService>();
 
 builder.Services.AddSingleton(mongoDatabase);
 builder.Services.AddAzureBlobStorage(builder.Configuration);
