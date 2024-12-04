@@ -14,7 +14,7 @@ namespace RentalDeliverer.src.Controllers.Deliverer
             try
             {
                 await _delivererCreateService.CreateDelivererAsync(request);
-                return Ok();
+                return StatusCode(201);
             }
             catch
             {

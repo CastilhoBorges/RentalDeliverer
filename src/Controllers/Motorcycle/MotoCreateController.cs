@@ -14,7 +14,7 @@ namespace RentalDeliverer.src.Controllers.Motorcycle
             try
             {
                 await _motoCreateService.CreateMotoAsync(request);
-                return Ok();
+                return StatusCode(201);
             }
             catch 
             {
