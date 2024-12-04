@@ -12,8 +12,8 @@ using RentalDeliverer.src.Data;
 namespace RentalDeliverer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241203182458_Migrations0.2")]
-    partial class Migrations02
+    [Migration("20241204014134_Migration0.0")]
+    partial class Migration00
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,8 @@ namespace RentalDeliverer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BirthDate")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CNH")
                         .IsRequired()
@@ -110,7 +109,7 @@ namespace RentalDeliverer.Migrations
                     b.Property<Guid>("DelivererId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("ExpectedEndDate")
