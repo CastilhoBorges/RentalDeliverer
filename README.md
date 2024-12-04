@@ -49,6 +49,8 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
    ```bash
    dotnet run
 
+---
+
 ## Acessando os Serviços
 
 - **Swagger:** [http://localhost:5075](http://localhost:5075/swagger/index.html)
