@@ -2,7 +2,7 @@
 
 namespace RentalDeliverer.src.Controllers.Motorcycle
 {
-    [Route("moto/{id}")]
+    [Route("motos/{id}")]
     [ApiController]
     public class MotoDeleteController(MotoDeleteService motoDeleteService) : ControllerBase
     {
