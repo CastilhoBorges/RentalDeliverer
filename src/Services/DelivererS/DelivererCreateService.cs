@@ -12,16 +12,10 @@ namespace RentalDeliverer.src.Services.DelivererS
             bool cnpjExist = await _context.Deliverers.AnyAsync(d => d.CNPJ == request.cnpj);
             bool cnhExist = await _context.Deliverers.AnyAsync(d => d.CNH == request.numero_cnh);
 
-            if (cnhExist || cnpjExist)
-            {
-                throw new Exception();
-            }
-
-            if (request.tipo_cnh != "A" && request.tipo_cnh != "B" && request.tipo_cnh != "AB")
-            {
-                throw new Exception();
-            }
-
+            if (cnhExist || cnpjExist) throw new Exception();
+                       
+            if (request.tipo_cnh != "A" && request.tipo_cnh != "B" && request.tipo_cnh != "AB") throw new Exception();
+                      
             var cleanHash = new Regex(@"^data:image\/[a-z]+;base64,").Replace(request.imagem_cnh, "");
             byte[] imageBytes = Convert.FromBase64String(cleanHash);
 
