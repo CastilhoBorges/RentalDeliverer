@@ -59,3 +59,23 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
   - **Usuário padrão:** `admin`
   - **Senha padrão:** `admin@123`
 
+---
+
+## Casos de uso para teste
+
+- `POST/motos` Endpoint responsavel pela Criação de uma moto no sistema. Ele recebe os dados estruturados de acordo com o JSON abaixo, confere se ja tem uma placa cadastrada se não, ela é criada na tabela Motorcycles no postgres.
+```json
+{
+  "identificador": "string",
+  "ano": 0,
+  "modelo": "string",
+  "placa": "string"
+}
+```
+
+- `GET/motos?placa` Endpoint responsavel pela listagem de todas as motos cadastradas na tabela Motorcycle. Com a possibilidade de filtrar as motos pela placa, caso o parametro da placa não seja enviado, a api traz um array de objetos com todas as motos.
+
+- `PUT/motos/{id}/placa` Caso ao cadastrar a moto, colocamos a placa errada, aqui conseguimos consertar isso, passamos o id da moto que desejamos que seja alterada e no body a placa que subtituira a errada.
+{
+  "placa": "string"
+}
