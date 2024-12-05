@@ -117,7 +117,7 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
   "data_inicio": "2024-12-04T17:36:25.067Z",
   "data_termino": "2024-12-04T17:36:25.067Z",
   "data_previsao_termino": "2024-12-04T17:36:25.067Z",
-  "plano": {7 OU 15 OU 30 OU 45 OU 50}
+  "plano": {7 15 30 45 50}
 }
 ```
 
