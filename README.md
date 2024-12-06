@@ -53,7 +53,15 @@ Além disso, garanta que as seguintes portas estejam liberadas no seu ambiente:
    ```bash
    docker-compose up -d
 
-4. **Execute a aplicação localmente:**
+4. **Aplicar as migrações do Entity Framework Core:**
+   ```bash
+   dotnet ef database update
+   ```
+   - Certifique que o dotnet-ef esteja instalado globalmente
+     ```bash
+     dotnet tool install --global dotnet-ef
+
+5. **Execute a aplicação localmente:**
    ```bash
    dotnet run
 
