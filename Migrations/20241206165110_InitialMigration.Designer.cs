@@ -12,8 +12,8 @@ using RentalDeliverer.src.Data;
 namespace RentalDeliverer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241204130025_Migration1.0")]
-    partial class Migration10
+    [Migration("20241206165110_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,8 +92,9 @@ namespace RentalDeliverer.Migrations
 
             modelBuilder.Entity("RentalDeliverer.src.Models.Rental", b =>
                 {
-                    b.Property<string>("RentalId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("RentalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("DelivererId")
                         .IsRequired()

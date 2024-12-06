@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RentalDeliverer.Migrations
 {
     /// <inheritdoc />
-    public partial class Migration10 : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace RentalDeliverer.Migrations
                 name: "Rentals",
                 columns: table => new
                 {
-                    RentalId = table.Column<string>(type: "text", nullable: false),
+                    RentalId = table.Column<Guid>(type: "uuid", nullable: false),
                     MotorcycleId = table.Column<string>(type: "text", nullable: false),
                     DelivererId = table.Column<string>(type: "text", nullable: false),
                     RentalTypeId = table.Column<string>(type: "text", nullable: false),

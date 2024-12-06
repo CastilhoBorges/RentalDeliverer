@@ -1,4 +1,4 @@
-using RentalDeliverer.src.Services.DelivererS;
+using RentalDeliverer.src.Services.DelivererS; 
 using RentalDeliverer.src.Services.MotorcycleS;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,19 +26,18 @@ builder.Services.AddScoped<DelivererImgUpdateService>();
 builder.Services.AddSingleton(mongoDatabase);
 builder.Services.AddAzureBlobStorage(builder.Configuration);
 builder.Services.AddMassTransitWithRabbitMq(builder.Configuration);
-
 builder.Services.AddScoped<MotoCreatedPublisher>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) // Faz rodar o swagger apenas em ambiente de dev
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // Redireciona requisições HTTP para HTTPS.
 
-app.MapControllers();
+app.MapControllers(); // Configura os endpoints da API baseados nos controladores criados.
 
 app.Run();
